@@ -68,6 +68,7 @@ HBITMAP CreateThumbnail(const char* filename, UINT thumb_size, BOOL& has_alpha)
 	int count = image_size * image_size;
 	unsigned char* idata = (unsigned char*)image->data[0];
 	unsigned char* data = &buffer.data()[20];
+
 	for (int i = 0; i < count; i++)
 	{
 		const auto val = atlasColors.find(data[i]);
@@ -78,10 +79,10 @@ HBITMAP CreateThumbnail(const char* filename, UINT thumb_size, BOOL& has_alpha)
 		//	idata[i + (count * 3)] = 255;
 		}
 		else {
-			idata[i] = 150;
-			idata[i + (count)] = 150;
-			idata[i + (count * 2)] = 150;
-			//idata[i + (count * 3)] = 0;
+			idata[i] = 34;
+			idata[i + (count)] = 34;
+			idata[i + (count * 2)] = 34;
+			idata[i + (count * 3)] = 0;
 		}
 	}
 
