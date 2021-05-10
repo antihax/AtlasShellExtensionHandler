@@ -126,14 +126,9 @@ IFACEMETHODIMP ThumbnailProvider::GetThumbnail(UINT thumb_size, HBITMAP *phbmp, 
   size_t size;
   wcstombs_s(&size, filename, 10240, m_pPathFile, 10240);
 
-  BOOL has_alpha;
-  *phbmp = CreateThumbnail(filename, thumb_size, has_alpha);
+  *phbmp = CreateThumbnail(filename, thumb_size);
   if (!(*phbmp))
     return E_FAIL;
-
-  if (has_alpha)
-    *pdwAlpha = WTSAT_ARGB;
-  else
     *pdwAlpha = WTSAT_RGB;
 
   return S_OK;

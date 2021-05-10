@@ -40,7 +40,7 @@ static void imImageViewFitRect(int cnv_width, int cnv_height, int img_width, int
 }
 
 
-HBITMAP CreateThumbnail(const char* filename, UINT thumb_size, BOOL& has_alpha)
+HBITMAP CreateThumbnail(const char* filename, UINT thumb_size)
 {
 	std::basic_ifstream<unsigned char> file(filename, std::ios::binary | std::ios::ate);
 	std::streamsize size = file.tellg();
@@ -82,13 +82,12 @@ HBITMAP CreateThumbnail(const char* filename, UINT thumb_size, BOOL& has_alpha)
 			idata[i] = 34;
 			idata[i + (count)] = 34;
 			idata[i + (count * 2)] = 34;
-			idata[i + (count * 3)] = 0;
+		//	idata[i + (count * 3)] = 0;
 		}
 	}
 
 	int thumb_width, thumb_height;
 	imProcessFlip(image, image);
-
 	imImageViewFitRect(thumb_size, thumb_size, image->width, image->height, &thumb_width, &thumb_height);
 
 	imImage* thumb_image = imImageCreateBased(image, thumb_width, thumb_height, -1, -1);
@@ -107,11 +106,6 @@ HBITMAP CreateThumbnail(const char* filename, UINT thumb_size, BOOL& has_alpha)
 		return NULL;
 	}
 	ReleaseDC(NULL, hDC);
-
-	if (image->has_alpha)
-		has_alpha = TRUE;
-	else
-		has_alpha = FALSE;
 
 	imDibDestroy(dib);
 	imImageDestroy(thumb_image);
